@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Procrastination Preventer</title>
+
+  <!-- Prism.js syntax highlighting -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+
+  <!-- Includes the stylesheet file styles.css -->
+  <link rel="stylesheet" href="styles.css?v=2" />
+</head>
+<script>
+  window.addEventListener("beforeprint", () => {
+    const proto = document.getElementById("prototypeImage");
+    const printHeroImg = document.querySelector("#print-hero img");
+
+    if (proto && printHeroImg) {
+      printHeroImg.src = proto.src;
+    }
+  });
+</script>
+
+
+<body>
+  <!-- Fixed Navigation Menu -->
+  <nav id="menu">
+    <h3>Menu</h3>
+    <ul>
+      <li><a href="#top">Title</a></li>
+      <li><a href="#information">Project Information</a></li>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#circuit-diagram">Circuit</a></li>
+      <li><a href="#environment">Environment</a></li>
+      <li><a href="#bom">BoM</a></li>
+      <li><a href="#prototype">Prototype</a></li>
+      <li><a href="#code">Code</a></li>
+      <li><a href="#conclusion">Conclusion</a></li>
+      <li><a href="#references">References</a></li>
+    </ul>
+  </nav>
+ <button class="print-button" onclick="window.print()" style="position: fixed; bottom: 24px; right: 24px; padding: 10px 16px; background: #2563eb; color: white; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.15); font-size: 0.9rem; z-index: 2000;">  Print This Page </button>
+
+  <h1 id="top">Procrastination Preventer </h1>
+<div id="print-hero">
+    <img src="" alt="">
+</div>
+
+  <section id="information">
+    <h2>Project Information</h2>
+    <p><strong>Course:</strong> TECH 117 (Electronics Engineering Technology, Fall 2026)</p>
+    <p><strong>Instructor:</strong> Ph.D. Ana Rodrigues</p>
+    <p><strong>Team Members:</strong></p>
+    <ul>
+      <li>Kayden</li>
+      <li>Jaideep</li>
+      <li>Sebastian</li>
+      <li>Arjo</li>
+    </ul>
+  </section>
+
+<section id="introduction">
+    <h2>Introduction</h2>
+    <p>The <strong>Procrastination Preventer</strong> is an automated physical lockdown safe designed to eliminate digital distractions during study and work sessions. By physically locking a smartphone inside an enclosure for a user-specified duration, the system prevents device interaction until the timer expires. The system integrates an Arduino Uno, a 5V 1602A LCD display, a keypad module, a 10K potentiometer, a motorized stepper lock, Red/Green/Blue status LEDs, and a cable access port.</p>
+
+    <h3>What Does The Project Need To Do</h3>
+    <ul>
+      <li><strong>Automated Motorized Locking & Unlocking:</strong> A 5V stepper motor automatically drives the door mechanism shut when a countdown starts and retracts the lock upon timer completion.</li>
+      <li><strong>Keypad-Driven Dual Timers:</strong> The user inputs custom durations for both a <em>Study Timer</em> and a <em>Break Timer</em> using the keypad matrix.</li>
+      <li><strong>Visual Telemetry & Status LEDs:</strong> A 1602A LCD screen displays live remaining time, while dedicated LEDs (Red, Green, Blue) visually signal system states (e.g., Red = Locked/Study, Green = Unlocked/Break, Blue = Menu Setup).</li>
+      <li><strong>Charging & Headphone Cable Passthrough:</strong> A cut-out port allows charging or wired audio access while keeping the phone secured inside.</li>
+    </ul>
+
+    <h3>How We Know If It Works Well</h3>
+    <ul>
+      <li><strong>Autonomous Door Operation:</strong> The box reliably closes and opens on its own at the start and end of designated timer cycles.</li>
+      <li><strong>Physical Security:</strong> The locking bolt holds firmly in place during active countdowns to prevent phone retrieval before the timer reaches zero.</li>
+      <li><strong>Clear Lock Confirmation:</strong> The status LED indicators provide immediate, long-range visual confirmation that the box is locked and unopenable.</li>
+      <li><strong>Functional Accessibility:</strong> The charging slot allows cable connectivity without compromising the physical lock integrity.</li>
+    </ul>
+
+    <h3>What Might Make It Harder To Finish</h3>
+    <ul>
+      <li><strong>Multi-Component Software Integration:</strong> Simultaneously controlling stepper motor steps, parsing keypad button presses, updating the 1602A LCD, and toggling RGB LEDs can lead to software delays or unresponsive inputs. <em>Contingency:</em> Implement non-blocking state loops using <code>millis()</code> timing routines instead of blocking <code>delay()</code> calls.</li>
+      <li><strong>Keypad Input Parsing & Debouncing:</strong> Rapid or multi-key presses on the keypad matrix can corrupt input variables. <em>Contingency:</em> Utilize the standard <code>Keypad.h</code> library with built-in software debouncing routines.</li>
+      <li><strong>Stepper Motor Torque & Driver Supply:</strong> The stepper motor requires precise step sequencing and stable power draw to open and close smoothly. <em>Contingency:</em> Power the stepper motor driver via an external 5V power supply with shared common grounding.</li>
+    </ul>
+  </section>
+
+  <section id="circuit-diagram">
+    <h2>Circuit Diagram (THIS SECTION IS TO BE EDITED)</h2>
+    <p>The potentiometer sets the timer duration, which is displayed live on the 16x2 LCD screen. Pressing the start button triggers the SG90 servo motor to rotate 90 degrees and engage the physical box latch. The Arduino counts down the remaining time on the LCD screen, holding the servo locked until the timer reaches zero.</p>
+    <img src="procrastination-preventer-circuit.jpg" alt="Procrastination Preventer circuit diagram featuring Arduino Uno, Servo, LCD, and Potentiometer">
+  </section>
+
+  <section id="environment">
+    <h2>Environmental Impact Assessment (THIS SECTION IS TO BE EDITED)</h2>
+    <ul>
+      <li><strong>Materials:</strong> The Arduino Uno is RoHS and WEEE compliant, limiting hazardous substances.
+      </li>
+      <li><strong>Energy Efficiency:</strong> The circuit draws minimal power (~50 mA at 5V), ideal for USB or
+        solar power.</li>
+      <li><strong>Reusability:</strong> All components are modular and reusable, reducing electronic waste.</li>
+      <li><strong>Packaging & Shipping:</strong> Ordering all components from a single supplier helps minimize
+        carbon footprint.</li>
+    </ul>
+  </section>
+
+<section id="bom">
+    <h2>Bill of Materials (BoM) (THIS SECTION IS TO BE EDITED)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>Subtotal</th>
+          <th>Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Arduino Uno Rev3</td>
+          <td>1</td>
+          <td>$27.60</td>
+          <td>$27.60</td>
+          <td><a href="https://store-usa.arduino.cc/products/arduino-uno-rev3">Arduino Store</a></td>
+        </tr>
+        <tr>
+          <td>SG90 Micro Servo Motor</td>
+          <td>1</td>
+          <td>$3.95</td>
+          <td>$3.95</td>
+          <td><a href="https://www.adafruit.com/product/169">Adafruit</a></td>
+        </tr>
+        <tr>
+          <td>16x2 LCD Display with I2C Module</td>
+          <td>1</td>
+          <td>$9.95</td>
+          <td>$9.95</td>
+          <td><a href="https://www.adafruit.com/product/398">Adafruit</a></td>
+        </tr>
+        <tr>
+          <td>10kΩ Rotary Potentiometer</td>
+          <td>1</td>
+          <td>$0.95</td>
+          <td>$0.95</td>
+          <td><a href="https://www.sparkfun.com/products/9806">SparkFun</a></td>
+        </tr>
+        <tr>
+          <td>Tactile Pushbutton Switch</td>
+          <td>1</td>
+          <td>$0.50</td>
+          <td>$0.50</td>
+          <td><a href="https://www.adafruit.com/product/367">Adafruit</a></td>
+        </tr>
+        <tr>
+          <td>Breadboard & Jumper Wires</td>
+          <td>1 set</td>
+          <td>$8.45</td>
+          <td>$8.45</td>
+          <td><a href="https://www.sparkfun.com/products/12002">SparkFun</a></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3">Estimated Total</td>
+          <td>$51.40</td>
+          <td>—</td>
+        </tr>
+      </tfoot>
+    </table>
+  </section>
+
+  <section id="prototype">
+    <h2>Prototype (THIS SECTION IS TO BE EDITED)</h2>
+    <p>The following image shows the assembled prototype on a breadboard.</p>
+    <img  id="prototypeImage" src="prototype.jpg" alt="Collision warning system prototype">
+  </section>
+
+<section id="code">
+    <h2>Arduino Code (THIS SECTION IS TO BE EDITED)</h2>
+    <p>The following C++ program reads time selection from the potentiometer, displays the live countdown on the I2C LCD, and actuates the servo motor latch mechanism upon button press.</p>
+    <div class="code-container" style="position: relative;">
+      <button class="copy-btn" onclick="copyCode()" style="position:absolute; top:8px; right:8px; z-index:10;">Copy</button>
+
+      <pre class="line-numbers">
+<code id="arduinoCode" class="language-cpp">
+#include &lt;Wire.h&gt;
+#include &lt;LiquidCrystal_I2C.h&gt;
+#include &lt;Servo.h&gt;
+
+// Hardware Pins
+const int potPin = A0;
+const int buttonPin = 2;
+const int servoPin = 9;
+
+// Objects
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+Servo lockServo;
+
+// Constants & State Parameters
+const int LOCKED_POS = 90;   // Servo locked angle (degrees)
+const int UNLOCKED_POS = 0;  // Servo unlocked angle (degrees)
+bool isLocked = false;
+int minutesToLock = 1;
+
+void setup() {
+  pinMode(buttonPin, INPUT_PULLUP);
+  lockServo.attach(servoPin);
+  lockServo.write(UNLOCKED_POS);
+
+  lcd.init();
+  lcd.backlight();
+  lcd.setCursor(0, 0);
+  lcd.print("Set Time (Mins):");
+}
+
+void loop() {
+  if (!isLocked) {
+    // Read potentiometer value (maps 0-1023 analog input to 1-60 minutes)
+    int potVal = analogRead(potPin);
+    minutesToLock = map(potVal, 0, 1023, 1, 60);
+
+    lcd.setCursor(0, 1);
+    lcd.print("Timer: ");
+    if (minutesToLock &lt; 10) lcd.print("0");
+    lcd.print(minutesToLock);
+    lcd.print(" mins   ");
+
+    // Check start button press (Active LOW using internal pull-up)
+    if (digitalRead(buttonPin) == LOW) {
+      delay(50); // Debounce delay
+      if (digitalRead(buttonPin) == LOW) {
+        startLockdown(minutesToLock);
+      }
+    }
+  }
+  delay(100);
+}
+
+void startLockdown(int totalMinutes) {
+  isLocked = true;
+  lockServo.write(LOCKED_POS);
+
+  long totalSeconds = (long)totalMinutes * 60;
+
+  while (totalSeconds &gt; 0) {
+    long minsLeft = totalSeconds / 60;
+    long secsLeft = totalSeconds % 60;
+
+    lcd.setCursor(0, 0);
+    lcd.print("   LOCKED OUT!  ");
+    lcd.setCursor(0, 1);
+    lcd.print("Time: ");
+    if (minsLeft &lt; 10) lcd.print("0");
+    lcd.print(minsLeft);
+    lcd.print(":");
+    if (secsLeft &lt; 10) lcd.print("0");
+    lcd.print(secsLeft);
+    lcd.print("   ");
+
+    delay(1000);
+    totalSeconds--;
+  }
+
+  // Timer finished - release lock mechanism
+  lockServo.write(UNLOCKED_POS);
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print(" Time's Up! ");
+  lcd.setCursor(0, 1);
+  lcd.print(" Box Unlocked ");
+  delay(5000);
+
+  isLocked = false;
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Set Time (Mins):");
+}
+</code>
+      </pre>
+    </div>
+  </section>
+
+
+
+  <section id="conclusion">
+    <h2>Conclusion (THIS SECTION IS TO BE EDITED)</h2>
+    <p>The system effectively demonstrates distance-based alerting using Arduino. It’s affordable, educational, and
+      sustainable through reusable components.</p>
+  </section>
+
+ <section id="references">
+  <h2>References</h2>
+
+  <ul>
+    <li>
+      <a href="https://www.arduino.cc/en/Guide/ArduinoUno">Arduino Uno Guide</a> - Official Arduino documentation for the Arduino Uno board.
+    </li>
+      <li>
+      <a href="https://www.youtube.com/watch?v=T00WozfH-44">Collision Warning System Project</a> - YouTube video demonstrating the collision warning system project.
+    </li>
+    <li>
+      <a href="https://www.youtube.com/watch?v=xf4Bnm8edAg">Collision Warning System Project</a> - YouTube video demonstrating the collision warning system project.
+    </li>
+    <li>
+        <a href="https://www.arduino.cc/reference/en/libraries/servo/">Arduino Servo Library Documentation</a> - Technical reference for controlling pulse-width modulation (PWM) signals to drive servo motor latch mechanisms.
+      </li>
+      <li>
+        <a href="https://docs.arduino.cc/learn/electronics/liquid-crystal-displays/">Arduino LiquidCrystal & I2C Guide</a> - Technical specification and interfacing documentation for displaying countdown timers on 16x2 LCD modules.
+      </li>
+      <li>
+        <a href="https://www.adafruit.com/product/169">Adafruit SG90 Servo Technical Specs</a> - Specification details, torque ratings, and operating voltage ranges for the micro servo motor.
+      </li>
+    <li>
+        <a href="https://www.hackster.io/engineerkid/arduino-controlled-safe-locker-344caf">Arduino Controlled Safe Locker</a> - Reference implementation for building motorized safe locking mechanisms and electronic latches.
+      </li>
+      <li>
+        <a href="https://www.circuitbasics.com/how-to-set-up-a-keypad-on-an-arduino/">How to Set Up a Keypad on an Arduino</a> - Interfacing tutorial for setting up matrix keypads, parsing inputs, and configuring timer parameters.
+      </li>
+  </ul>
+</section>
+
+
+
+<section id="Credits">
+    <h2>Credits</h2>
+    <p>Sebastian and Arjo did the overall documentation preparation.</p>
+    <p>Kayden did the circuit diagram.</p>
+    <p>Jaideep did the coding of the website.</p>
+  </section>
+
+
+</body>
+
+</html>
